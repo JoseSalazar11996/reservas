@@ -58,10 +58,12 @@
 <p class="p1"><span class="Apple-converted-space">        </span>const db = firebase.firestore();</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>console.log("DOM fully loaded and parsed");</p>
 <p class="p1"><span class="Apple-converted-space">            </span>cargarReservas();</p>
 <p class="p1"><span class="Apple-converted-space">        </span>});</p>
 <p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">        </span>function cargarReservas() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>console.log("Cargando reservas...");</p>
 <p class="p1"><span class="Apple-converted-space">            </span>db.collection("reservas").get().then((querySnapshot) =&gt; {</p>
 <p class="p1"><span class="Apple-converted-space">                </span>let listaReservas = document.getElementById('listaReservas');</p>
 <p class="p1"><span class="Apple-converted-space">                </span>listaReservas.innerHTML = '';</p>
@@ -71,6 +73,8 @@
 <p class="p1"><span class="Apple-converted-space">                    </span>li.textContent = `Fecha: ${reserva.fecha}, Hora de inicio: ${reserva.horaInicio}, Duración: ${reserva.duracion} horas`;</p>
 <p class="p1"><span class="Apple-converted-space">                    </span>listaReservas.appendChild(li);</p>
 <p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}).catch((error) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error("Error al cargar reservas: ", error);</p>
 <p class="p1"><span class="Apple-converted-space">            </span>});</p>
 <p class="p1"><span class="Apple-converted-space">        </span>}</p>
 <p class="p2"><br></p>
@@ -79,12 +83,15 @@
 <p class="p1"><span class="Apple-converted-space">            </span>let horaInicio = document.getElementById('horaInicio').value;</p>
 <p class="p1"><span class="Apple-converted-space">            </span>let duracion = document.getElementById('duracion').value;</p>
 <p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>console.log("Realizando reserva...", fecha, horaInicio, duracion);</p>
+<p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">            </span>db.collection("reservas").add({</p>
 <p class="p1"><span class="Apple-converted-space">                </span>fecha: fecha,</p>
 <p class="p1"><span class="Apple-converted-space">                </span>horaInicio: horaInicio,</p>
 <p class="p1"><span class="Apple-converted-space">                </span>duracion: duracion</p>
 <p class="p1"><span class="Apple-converted-space">            </span>})</p>
 <p class="p1"><span class="Apple-converted-space">            </span>.then((docRef) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.log("Reserva realizada con éxito");</p>
 <p class="p1"><span class="Apple-converted-space">                </span>alert("Reserva realizada con éxito");</p>
 <p class="p1"><span class="Apple-converted-space">                </span>cargarReservas();</p>
 <p class="p1"><span class="Apple-converted-space">            </span>})</p>
